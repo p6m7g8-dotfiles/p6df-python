@@ -212,7 +212,7 @@ p6df::modules::python::langs::pipenv() {
 ######################################################################
 p6df::modules::python::langs::pip() {
 
-  p6df::modules::python::lands::eggs
+  p6df::modules::python::langs::eggs
 
   pip install pip --upgrade
 
@@ -252,9 +252,11 @@ p6df::modules::python::init() {
 ######################################################################
 p6df::modules::python::pipenv::init() {
 
-  if p6_string_blank "$DISABLE_ENVS"; then
-    eval "$(p6_run_code pipenv --completion)"
-  fi
+  if [ 1 = 0 ]; then
+    if p6_string_blank "$DISABLE_ENVS"; then
+      eval "$(p6_run_code pipenv --completion)"
+    fi
+  fi 
 }
 
 ######################################################################
@@ -271,19 +273,18 @@ p6df::modules::python::pipenv::init() {
 ######################################################################
 p6df::modules::python::pyenv::init() {
   local dir="$1"
-
   if p6_string_blank "$DISABLE_ENVS"; then
     PYENV_ROOT=$dir/pyenv/pyenv
-    if [ -x $PYENV_ROOT/bin/pyenv ]; then
+    local bin=$PYENV_ROOT/bin/pyenv
+    if [ -x $bin ]; then
       p6_env_export "PYENV_ROOT" "$PYENV_ROOT"
       p6_env_export "HAS_PYENV" "1"
-      p6_env_export "PYENV_VIRTUALENV_DISABLE_PROMPT" "1"
+      p6_path_if "$PYENV_ROOT/bin"
 
-      p6df::util::path_if $PYENV_ROOT/bin
-      eval "$(p6_run_code pyenv init - zsh)"
+      eval "$($bin init --path)"
+      eval "$($bin init -)"
     fi
   fi
-
   p6_return_void
 }
 
@@ -334,8 +335,9 @@ p6df::modules::python::pipenv::prompt::line() {
 p6_pipenv_prompt_info() {
 
   local env
-  env=$(p6_run_code pipenv --venv 2>/dev/null)
-
+  if [ 1 = 0 ]; then
+    env=$(p6_run_code pipenv --venv 2>/dev/null)
+  fi
   local str
   if ! p6_string_blank "$env"; then
     env=$(p6_uri_name "$env")
