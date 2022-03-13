@@ -151,7 +151,7 @@ p6df::modules::python::langs::pull() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::python::lands::eggs()
+# Function: p6df::modules::python::langs::eggs()
 #
 #>
 ######################################################################
@@ -193,6 +193,7 @@ p6df::modules::python::langs::pipenv() {
 
   pip install pipenv
 
+  # @Eggs
   p6df::modules::python::langs::eggs
 
   local egg
@@ -206,15 +207,28 @@ p6df::modules::python::langs::pipenv() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::python::langs::pip::upgrade()
+#
+#>
+######################################################################
+p6df::modules::python::langs::pip::upgrade() {
+
+  pip install pip --upgrade
+}
+
+######################################################################
+#<
+#
 # Function: p6df::modules::python::langs::pip()
 #
 #>
 ######################################################################
 p6df::modules::python::langs::pip() {
 
-  p6df::modules::python::langs::eggs
+  p6df::modules::python::langs::pip::upgrade
 
-  pip install pip --upgrade
+  # @Eggs
+  p6df::modules::python::langs::eggs
 
   local egg
   for egg in $Eggs[@]; do
@@ -256,7 +270,7 @@ p6df::modules::python::pipenv::init() {
     if p6_string_blank "$DISABLE_ENVS"; then
       eval "$(p6_run_code pipenv --completion)"
     fi
-  fi 
+  fi
 }
 
 ######################################################################
