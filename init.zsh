@@ -7,7 +7,7 @@
 ######################################################################
 p6df::modules::python::deps() {
   ModuleDeps=(
-    p6m7g8/p6common
+    p6m7g8-dotfiles/p6common
     pyenv/pyenv
     ohmyzsh/ohmyzsh:plugins/pipenv
   )
@@ -70,8 +70,7 @@ p6df::modules::python::external::brew() {
 ######################################################################
 p6df::modules::python::home::symlink() {
 
-  echo ln -fs $P6_DFZ_SRC_P6M7G8_DIR/p6df-python/share/.pip .pip
-  ln -fs $P6_DFZ_SRC_P6M7G8_DIR/p6df-python/share/.pip .pip
+  ln -fs $P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-python/share/.pip .pip
 
   p6_return_void
 }
