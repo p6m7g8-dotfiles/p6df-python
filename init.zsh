@@ -70,7 +70,7 @@ p6df::modules::python::external::brew() {
 ######################################################################
 p6df::modules::python::home::symlink() {
 
-  ln -fs $P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-python/share/.pip .pip
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-python/share/.pip" ".pip"
 
   p6_return_void
 }
