@@ -2,8 +2,6 @@
 
 ## Table of Contents
 
-
-
 ### p6df-python
 - [p6df-python](#p6df-python)
   - [Badges](#badges)
