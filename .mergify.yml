@@ -5,7 +5,6 @@ queue_rules:
     conditions:
       - "#approved-reviews-by>=1"
       - -label~=(do-not-merge)
-      - status-success=pull-request-lint
 pull_request_rules:
   - name: Automatic merge on approval and successful build
     actions:
@@ -20,4 +19,3 @@ pull_request_rules:
     conditions:
       - "#approved-reviews-by>=1"
       - -label~=(do-not-merge)
-      - status-success=pull-request-lint
