@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+
 ### p6df-python
 - [p6df-python](#p6df-python)
   - [Badges](#badges)
@@ -43,6 +44,7 @@
 
 #### p6df-python/init.zsh:
 
+- p6_python_path_if(dir)
 - p6df::modules::python::deps()
 - p6df::modules::python::external::brew()
 - p6df::modules::python::external::yum()
@@ -56,14 +58,13 @@
 - p6df::modules::python::langs::pip::upgrade()
 - p6df::modules::python::langs::pipenv()
 - p6df::modules::python::langs::pull()
-- p6df::modules::python::pipenv::init()
-- p6df::modules::python::pipenv::prompt::line()
-- p6df::modules::python::prompt::line()
+- p6df::modules::python::pipenv::add()
+- p6df::modules::python::prompt::init()
 - p6df::modules::python::pyenv::init(dir)
 - p6df::modules::python::vscodes()
-- str str = p6_pipenv_prompt_info()
-- str str = p6_python_prompt_info()
-- str str = p6df::modules::python::pyenv::prompt::line()
+- str str = p6_pip_env_prompt_info()
+- str str = p6_py_env_prompt_info()
+
 
 
 ## Author

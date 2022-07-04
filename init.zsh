@@ -8,8 +8,8 @@
 p6df::modules::python::deps() {
   ModuleDeps=(
     p6m7g8-dotfiles/p6common
+    p6m7g8-dotfiles/p6df-zsh
     pyenv/pyenv
-    ohmyzsh/ohmyzsh:plugins/pipenv
   )
 
   p6_return_void
@@ -65,7 +65,8 @@ p6df::modules::python::external::brew() {
 #
 # Function: p6df::modules::python::home::symlink()
 #
-#  Environment:	 P6_DFZ_SRC_P6M7G8_DIR
+#  Depends:	 p6_file
+#  Environment:	 P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
 p6df::modules::python::home::symlink() {
@@ -117,6 +118,7 @@ p6df::modules::python::langs::install() {
 #
 # Function: p6df::modules::python::langs::nuke()
 #
+#  Depends:	 p6_git
 #>
 ######################################################################
 p6df::modules::python::langs::nuke() {
@@ -185,8 +187,23 @@ p6df::modules::python::langs::eggs() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::python::pipenv::add()
+#
+#>
+######################################################################
+p6df::modules::python::pipenv::add() {
+
+  p6df::core::prompt::line::add "p6_lang_prompt_info"
+  p6df::core::prompt::line::add "p6_lang_envs_prompt_info"
+  p6df::core::prompt::lang::line::add pip
+}
+
+######################################################################
+#<
+#
 # Function: p6df::modules::python::langs::pipenv()
 #
+#  Depends:	 p6_pipenv
 #>
 ######################################################################
 p6df::modules::python::langs::pipenv() {
@@ -202,6 +219,44 @@ p6df::modules::python::langs::pipenv() {
   done
 
   p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: str str = p6_pip_env_prompt_info()
+#
+#  Returns:
+#	str - str
+#
+#  Depends:	 p6_string
+#  Environment:	 COMMANDLINE PIPENV_ACTIVE
+#>
+######################################################################
+p6_pip_env_prompt_info() {
+
+  local env=$(p6_run_code pipenv --venv 2>/dev/null)
+  local str
+  if ! p6_string_blank "$env"; then
+    env=$(p6_uri_name "$env")
+
+    local astr
+    if p6_string_eq "$PIPENV_ACTIVE" "1"; then
+      astr="active"
+    else
+      astr="off"
+    fi
+
+    str="pip=$env ($astr)"
+    p6_return_str "$str"
+  else
+    p6_return_void
+  fi
+}
+
+# from ohmyzsh/plugins/pipenv
+_pipenv() {
+  eval $(env COMMANDLINE="${words[1, $CURRENT]}" _PIPENV_COMPLETE=complete-zsh pipenv)
 }
 
 ######################################################################
@@ -244,33 +299,18 @@ p6df::modules::python::langs::pip() {
 #
 # Function: p6df::modules::python::init()
 #
+#  Depends:	 p6_echo
 #  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
 p6df::modules::python::init() {
 
+  compdef _pipenv pipenv
+
   p6df::modules::python::pyenv::init "$P6_DFZ_SRC_DIR"
-  p6df::modules::python::pipenv::init
+  p6df::modules::python::prompt::init
 
   p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::python::pipenv::init()
-#
-#  Depends:	 p6_string
-#  Environment:	 DISABLE_ENVS
-#>
-######################################################################
-p6df::modules::python::pipenv::init() {
-
-  if [ 1 = 0 ]; then
-    if p6_string_blank "$DISABLE_ENVS"; then
-      eval "$(p6_run_code pipenv --completion)"
-    fi
-  fi
 }
 
 ######################################################################
@@ -281,12 +321,13 @@ p6df::modules::python::pipenv::init() {
 #  Args:
 #	dir -
 #
-#  Depends:	 p6_echo p6_env p6_string
-#  Environment:	 DISABLE_ENVS HAS_PYENV PYENV_ROOT PYENV_VIRTUALENV_DISABLE_PROMPT
+#  Depends:	 p6_env p6_path p6_string
+#  Environment:	 DISABLE_ENVS HAS_PYENV PYENV_ROOT
 #>
 ######################################################################
 p6df::modules::python::pyenv::init() {
   local dir="$1"
+
   if p6_string_blank "$DISABLE_ENVS"; then
     PYENV_ROOT=$dir/pyenv/pyenv
     local bin=$PYENV_ROOT/bin/pyenv
@@ -299,24 +340,42 @@ p6df::modules::python::pyenv::init() {
       eval "$($bin init -)"
     fi
   fi
+
   p6_return_void
 }
 
 ######################################################################
 #<
 #
-# Function: str str = p6df::modules::python::pyenv::prompt::line()
+# Function: p6df::modules::python::prompt::init()
+#
+#>
+######################################################################
+p6df::modules::python::prompt::init() {
+
+  p6df::core::prompt::line::add "p6_lang_prompt_info"
+  p6df::core::prompt::line::add "p6_lang_envs_prompt_info"
+  p6df::core::prompt::lang::line::add py
+}
+
+######################################################################
+#<
+#
+# Function: str str = p6_py_env_prompt_info()
 #
 #  Returns:
 #	str - str
 #
-#  Depends:	 p6_pipenv
-#  Environment:	 PYENV_ROOT
+#  Depends:	 p6_string
+#  Environment:	 P6_NL PYENV_ROOT PYTHON_PATH
 #>
 ######################################################################
-p6df::modules::python::pyenv::prompt::line() {
+p6_py_env_prompt_info() {
 
-  local str="pyenv:\t  pyenv_root=$PYENV_ROOT"
+  local str="pyenv_root=$PYENV_ROOT"
+  if ! p6_string_blank "$PYTHON_PATH"; then
+    str=$(p6_string_append "$str" "$P6_NLpython_path=$PYTHON_PATH")
+  fi
 
   p6_return_str "$str"
 }
@@ -324,83 +383,23 @@ p6df::modules::python::pyenv::prompt::line() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::python::pipenv::prompt::line()
+# Function: p6_python_path_if(dir)
 #
-#  Depends:	 p6_pipenv p6_string
+#  Args:
+#	dir -
+#
+#  Depends:	 p6_dir p6_env p6_string
+#  Environment:	 PYTHON_PATH
 #>
 ######################################################################
-p6df::modules::python::pipenv::prompt::line() {
+p6_python_path_if() {
+  local dir="$1"
 
-  p6_pipenv_prompt_info
-}
-
-######################################################################
-#<
-#
-# Function: str str = p6_pipenv_prompt_info()
-#
-#  Returns:
-#	str - str
-#
-#  Depends:	 p6_pipenv p6_string
-#  Environment:	 PIPENV_ACTIVE
-#>
-######################################################################
-p6_pipenv_prompt_info() {
-
-  local env
-  if [ 1 = 0 ]; then
-    env=$(p6_run_code pipenv --venv 2>/dev/null)
-  fi
-  local str
-  if ! p6_string_blank "$env"; then
-    env=$(p6_uri_name "$env")
-
-    local astr
-    if p6_string_eq "$PIPENV_ACTIVE" "1"; then
-      astr="active"
+  if p6_dir_exists "$dir"; then
+    if p6_string_blank "$PYTHON_PATH"; then
+      p6_env_export PYTHON_PATH "$dir"
     else
-      astr="off"
+      p6_env_export PYTHON_PATH "$dir:$PYTHON_PATH"
     fi
-
-    str="pipenv:   $env ($astr)"
-    p6_return_str "$str"
-  else
-    p6_return_void
   fi
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::python::prompt::line()
-#
-#  Depends:	 p6_lang p6_pipenv
-#>
-######################################################################
-p6df::modules::python::prompt::line() {
-
-  p6_python_prompt_info
-  p6_pipenv_prompt_info
-}
-
-######################################################################
-#<
-#
-# Function: str str = p6_python_prompt_info()
-#
-#  Returns:
-#	str - str
-#
-#>
-######################################################################
-p6_python_prompt_info() {
-
-  local str
-  local ver
-  ver=$(p6_lang_version "py")
-
-  str="py:\t  $ver"
-
-  p6_return_str "$str"
 }
