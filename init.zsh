@@ -24,7 +24,6 @@ p6df::modules::python::deps() {
 ######################################################################
 p6df::modules::python::vscodes() {
 
-  brew install --cask kite
   code --install-extension ms-python.python
   code --install-extension FedericoVarela.pipenv-scripts
   code --install-extension ms-python.vscode-pylance
