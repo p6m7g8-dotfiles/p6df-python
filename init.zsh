@@ -371,9 +371,9 @@ p6df::modules::python::prompt::init() {
 ######################################################################
 p6_py_env_prompt_info() {
 
-  local str="pyenv_root=$PYENV_ROOT"
+  local str="pyenv_root:\t  $PYENV_ROOT"
   if ! p6_string_blank "$PYTHON_PATH"; then
-    str=$(p6_string_append "$str" "python_path=$PYTHON_PATH" "$P6_NL")
+    str=$(p6_string_append "$str" "python_path:\t  $PYTHON_PATH" "$P6_NL")
   fi
 
   p6_return_str "$str"
