@@ -7,12 +7,9 @@
 ######################################################################
 p6df::modules::python::deps() {
   ModuleDeps=(
-    p6m7g8-dotfiles/p6common
     p6m7g8-dotfiles/p6df-zsh
     pyenv/pyenv
   )
-
-  p6_return_void
 }
 
 ######################################################################
@@ -64,7 +61,6 @@ p6df::modules::python::external::brew() {
 #
 # Function: p6df::modules::python::home::symlink()
 #
-#  Depends:	 p6_file
 #  Environment:	 P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
@@ -117,7 +113,6 @@ p6df::modules::python::langs::install() {
 #
 # Function: p6df::modules::python::langs::nuke()
 #
-#  Depends:	 p6_git
 #>
 ######################################################################
 p6df::modules::python::langs::nuke() {
@@ -135,7 +130,6 @@ p6df::modules::python::langs::nuke() {
 #
 # Function: p6df::modules::python::langs::pull()
 #
-#  Depends:	 p6_git
 #  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
@@ -202,7 +196,6 @@ p6df::modules::python::pipenv::add() {
 #
 # Function: p6df::modules::python::langs::pipenv()
 #
-#  Depends:	 p6_pipenv
 #>
 ######################################################################
 p6df::modules::python::langs::pipenv() {
@@ -228,7 +221,6 @@ p6df::modules::python::langs::pipenv() {
 #  Returns:
 #	str - str
 #
-#  Depends:	 p6_string
 #  Environment:	 COMMANDLINE PIPENV_ACTIVE
 #>
 ######################################################################
@@ -246,7 +238,7 @@ p6_pip_env_prompt_info() {
       astr="off"
     fi
 
-    str="pip=$env ($astr)"
+    str="pipenv:\t\t  $env ($astr)"
     p6_return_str "$str"
   else
     p6_return_void
@@ -298,7 +290,6 @@ p6df::modules::python::langs::pip() {
 #
 # Function: p6df::modules::python::init()
 #
-#  Depends:	 p6_echo
 #  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
@@ -320,7 +311,6 @@ p6df::modules::python::init() {
 #  Args:
 #	dir -
 #
-#  Depends:	 p6_env p6_path p6_string
 #  Environment:	 DISABLE_ENVS HAS_PYENV PYENV_ROOT
 #>
 ######################################################################
@@ -365,8 +355,7 @@ p6df::modules::python::prompt::init() {
 #  Returns:
 #	str - str
 #
-#  Depends:	 p6_string
-#  Environment:	 P6_NL PYENV_ROOT PYTHON_PATH
+#  Environment:	 PYENV_ROOT PYTHON_PATH
 #>
 ######################################################################
 p6_py_env_prompt_info() {
@@ -387,7 +376,6 @@ p6_py_env_prompt_info() {
 #  Args:
 #	dir -
 #
-#  Depends:	 p6_dir p6_env p6_string
 #  Environment:	 PYTHON_PATH
 #>
 ######################################################################
