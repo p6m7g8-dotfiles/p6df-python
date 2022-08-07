@@ -21,8 +21,9 @@ p6df::modules::python::deps() {
 ######################################################################
 p6df::modules::python::vscodes() {
 
-  code --install-extension ms-python.python
   code --install-extension FedericoVarela.pipenv-scripts
+  code --install-extension kiteco.kite
+  code --install-extension ms-python.python
   code --install-extension ms-python.vscode-pylance
 
   p6_return_void
@@ -135,10 +136,7 @@ p6df::modules::python::langs::nuke() {
 ######################################################################
 p6df::modules::python::langs::pull() {
 
-  (
-    cd $P6_DFZ_SRC_DIR/pyenv/pyenv
-    p6_git_p6_pull
-  )
+  p6_dir_run "$P6_DFZ_SRC_DIR/pyenv/pyenv" p6_git_p6_pull
 
   p6_return_void
 }
