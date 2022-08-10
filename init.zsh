@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 ######################################################################
 #<
 #
@@ -309,23 +310,20 @@ p6df::modules::python::init() {
 #  Args:
 #	dir -
 #
-#  Environment:	 DISABLE_ENVS HAS_PYENV PYENV_ROOT
+#  Environment:	 HAS_PYENV P6_DFZ_LANGS_DISABLE PYENV_ROOT
 #>
 ######################################################################
 p6df::modules::python::pyenv::init() {
   local dir="$1"
 
-  if p6_string_blank "$DISABLE_ENVS"; then
-    PYENV_ROOT=$dir/pyenv/pyenv
-    local bin=$PYENV_ROOT/bin/pyenv
-    if [ -x $bin ]; then
+  local PYENV_ROOT=$dir/pyenv/pyenv
+  local bin=$PYENV_ROOT/bin/pyenv
+  if p6_string_blank "$P6_DFZ_LANGS_DISABLE" && p6_file_executable "$bin"; then
       p6_env_export "PYENV_ROOT" "$PYENV_ROOT"
       p6_env_export "HAS_PYENV" "1"
       p6_path_if "$PYENV_ROOT/bin"
-
       eval "$($bin init --path)"
       eval "$($bin init -)"
-    fi
   fi
 
   p6_return_void
@@ -387,4 +385,6 @@ p6_python_path_if() {
       p6_env_export PYTHON_PATH "$dir:$PYTHON_PATH"
     fi
   fi
+
+  p6_return_void
 }
