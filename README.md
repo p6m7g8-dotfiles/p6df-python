@@ -58,12 +58,11 @@
 - p6df::modules::python::langs::pip::upgrade()
 - p6df::modules::python::langs::pipenv()
 - p6df::modules::python::langs::pull()
-- p6df::modules::python::pipenv::add()
-- p6df::modules::python::prompt::init()
-- p6df::modules::python::pyenv::init(dir)
+- p6df::modules::python::pyenv::latest()
+- p6df::modules::python::pyenv::latest::installed()
 - p6df::modules::python::vscodes()
-- str str = p6_pip_env_prompt_info()
-- str str = p6_py_env_prompt_info()
+- str str = p6df::modules::pip::env::prompt::info()
+- str str = p6df::modules::py::env::prompt::info()
 
 
 
