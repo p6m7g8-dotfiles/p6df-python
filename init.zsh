@@ -186,6 +186,7 @@ p6df::modules::python::langs::eggs() {
     "mpyp"
     "nose"
     "pep8"
+    "poetry"
     "prospector"
     "pycodestyle"
     "pydocstyle"
