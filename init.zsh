@@ -23,8 +23,6 @@ p6df::modules::python::deps() {
 p6df::modules::python::vscodes() {
 
   code --install-extension FedericoVarela.pipenv-scripts
-  code --install-extension kiteco.kite
-  code --install-extension ms-python.python
   code --install-extension ms-python.vscode-pylance
 
   p6_return_void
@@ -69,8 +67,6 @@ p6df::modules::python::external::brew() {
 p6df::modules::python::home::symlink() {
 
   p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-python/share/.pip" ".pip"
-  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-python/share/.kite" ".kite"
-
   p6_return_void
 }
 
