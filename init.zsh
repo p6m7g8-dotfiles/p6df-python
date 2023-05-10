@@ -9,6 +9,7 @@
 p6df::modules::python::deps() {
   ModuleDeps=(
     p6m7g8-dotfiles/p6df-zsh
+    p6m7g8-dotfiles/p6python
     pyenv/pyenv
   )
 }
@@ -169,9 +170,9 @@ p6df::modules::python::langs::pull() {
 #
 #>
 ######################################################################
-p6df::modules::python::langs::eggs() {
+p6df::modules::python::langs::whls() {
 
-  Eggs=(
+  Whls=(
     "pip"
     "wheel"
     "autopep8"
@@ -183,6 +184,7 @@ p6df::modules::python::langs::eggs() {
     "nose"
     "pep8"
     "poetry"
+    "pydantic"
     "prospector"
     "pycodestyle"
     "pydocstyle"
@@ -208,12 +210,12 @@ p6df::modules::python::langs::pipenv() {
 
   pip install pipenv
 
-  # @Eggs
-  p6df::modules::python::langs::eggs
+  # @Whls
+  p6df::modules::python::langs::whls
 
-  local egg
-  for egg in $Eggs[@]; do
-    pipenv install $egg
+  local whl
+  for wheel in $Whls[@]; do
+    pipenv install $wheel
   done
 
   p6_return_void
@@ -279,12 +281,12 @@ p6df::modules::python::langs::pip() {
 
   p6df::modules::python::langs::pip::upgrade
 
-  # @Eggs
-  p6df::modules::python::langs::eggs
+  # @Whls
+  p6df::modules::python::langs::whls
 
-  local egg
-  for egg in $Eggs[@]; do
-    pip install $egg
+  local whl
+  for wheel in $Whls[@]; do
+    pip install $wheel
   done
   pyenv rehash
 
@@ -323,8 +325,8 @@ p6df::modules::python::init() {
 p6df::modules::py::env::prompt::info() {
 
   local str="pyenv_root:\t  $PYENV_ROOT"
-  if ! p6_string_blank "$PYTHON_PATH"; then
-    str=$(p6_string_append "$str" "python_path:\t  $PYTHON_PATH" "$P6_NL")
+  if ! p6_string_blank "$PYTHONPATH"; then
+    str=$(p6_string_append "$str" "pythonpath:\t  $PYTHONPATH" "$P6_NL")
   fi
 
   p6_return_str "$str"
@@ -338,17 +340,17 @@ p6df::modules::py::env::prompt::info() {
 #  Args:
 #	dir -
 #
-#  Environment:	 PYTHON_PATH
+#  Environment:	 PYTHONPATH
 #>
 ######################################################################
 p6_python_path_if() {
   local dir="$1"
 
   if p6_dir_exists "$dir"; then
-    if p6_string_blank "$PYTHON_PATH"; then
-      p6_env_export PYTHON_PATH "$dir"
+    if p6_string_blank "$PYTHONPATH"; then
+      p6_env_export PYTHONPATH "$dir"
     else
-      p6_env_export PYTHON_PATH "$dir:$PYTHON_PATH"
+      p6_env_export PYTHONPATH "$dir:$PYTHONPATH"
     fi
   fi
 
