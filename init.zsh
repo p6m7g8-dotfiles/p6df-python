@@ -25,6 +25,11 @@ p6df::modules::python::vscodes() {
 
   code --install-extension FedericoVarela.pipenv-scripts
   code --install-extension ms-python.vscode-pylance
+  code --install-extension ms-python.pylint
+  code --install-extension ms-python.flake8
+  code --install-extension ms-python.mypy-type-checker
+  code --install-extension ms-python.black-formatter
+  code --install-extension ms-python.isort
 
   p6_return_void
 }
