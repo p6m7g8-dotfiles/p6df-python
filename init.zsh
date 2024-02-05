@@ -11,6 +11,8 @@ p6df::modules::python::deps() {
     p6m7g8-dotfiles/p6df-zsh
     p6m7g8-dotfiles/p6python
     pyenv/pyenv
+    ohmyzsh/ohmyzsh:plugins/poetry
+    ohmyzsh/ohmyzsh:plugins/poetry-env
   )
 }
 
@@ -30,6 +32,7 @@ p6df::modules::python::vscodes() {
   code --install-extension ms-python.mypy-type-checker
   code --install-extension ms-python.black-formatter
   code --install-extension ms-python.isort
+  code --install-extension zeshuaro.vscode-python-poetry
 
   p6_return_void
 }
@@ -229,6 +232,20 @@ p6df::modules::python::langs::pipenv() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::python::langs::pipenv()
+#
+#>
+######################################################################
+p6df::modules::python::langs::poetry() {
+
+  curl -sSL https://install.python-poetry.org | python -
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
 # Function: str str = p6df::modules::pip::env::prompt::info()
 #
 #  Returns:
@@ -310,6 +327,7 @@ p6df::modules::python::init() {
 
   compdef _pipenv pipenv
 
+  p6_path_if "$HOME/.local/bin" "$PATH" # XXX Must be before shims 
   p6df::core::lang::mgr::init "$P6_DFZ_SRC_DIR/pyenv/pyenv" "py"
   # eval "$($bin init --path)"
 
