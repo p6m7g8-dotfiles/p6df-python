@@ -174,7 +174,7 @@ p6df::modules::python::langs::pull() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::python::langs::eggs()
+# Function: p6df::modules::python::langs::whls()
 #
 #>
 ######################################################################
@@ -232,7 +232,7 @@ p6df::modules::python::langs::pipenv() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::python::langs::pipenv()
+# Function: p6df::modules::python::langs::poetry()
 #
 #>
 ######################################################################
@@ -320,14 +320,14 @@ p6df::modules::python::langs::pip() {
 #
 # Function: p6df::modules::python::init()
 #
-#  Environment:	 P6_DFZ_SRC_DIR
+#  Environment:	 HOME P6_DFZ_SRC_DIR
 #>
 ######################################################################
 p6df::modules::python::init() {
 
   compdef _pipenv pipenv
 
-  p6_path_if "$HOME/.local/bin" "$PATH" # XXX Must be before shims 
+  p6_path_if "$HOME/.local/bin" "$PATH" # XXX Must be before shims
   p6df::core::lang::mgr::init "$P6_DFZ_SRC_DIR/pyenv/pyenv" "py"
   # eval "$($bin init --path)"
 
@@ -342,7 +342,7 @@ p6df::modules::python::init() {
 #  Returns:
 #	str - str
 #
-#  Environment:	 PYENV_ROOT PYTHON_PATH
+#  Environment:	 PYENV_ROOT PYTHONPATH
 #>
 ######################################################################
 p6df::modules::py::env::prompt::info() {
