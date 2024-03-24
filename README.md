@@ -10,8 +10,7 @@
   - [Summary](#summary)
   - [Contributing](#contributing)
   - [Code of Conduct](#code-of-conduct)
-  - [Changes](#changes)
-    - [Usage](#usage)
+  - [Usage](#usage)
   - [Author](#author)
 
 ### Badges
@@ -34,23 +33,33 @@
 
 - [Code of Conduct](https://github.com/p6m7g8/.github/blob/master/CODE_OF_CONDUCT.md)
 
-## Changes
-
-- [Change Log](CHANGELOG.md)
-
 ## Usage
+
+
+### Aliases
+
+
+### Functions
 
 ### p6df-python:
 
 #### p6df-python/init.zsh:
 
-- p6_python_path_if(dir)
 - p6df::modules::python::deps()
 - p6df::modules::python::external::brew()
 - p6df::modules::python::external::yum()
 - p6df::modules::python::home::symlink()
-- p6df::modules::python::init()
+- p6df::modules::python::init(_module, dir)
 - p6df::modules::python::langs()
+- p6df::modules::python::vscodes()
+- str str = p6df::modules::pip::env::prompt::info()
+- str str = p6df::modules::py::env::prompt::info()
+
+
+### p6df-python/lib:
+
+#### p6df-python/lib/langs.sh:
+
 - p6df::modules::python::langs::install()
 - p6df::modules::python::langs::nuke()
 - p6df::modules::python::langs::pip()
@@ -59,14 +68,25 @@
 - p6df::modules::python::langs::poetry()
 - p6df::modules::python::langs::pull()
 - p6df::modules::python::langs::whls()
+
+#### p6df-python/lib/pyenv.sh:
+
+- p6df::modules::python::langs::pip()
+- p6df::modules::python::langs::pip::upgrade()
 - p6df::modules::python::pyenv::latest()
 - p6df::modules::python::pyenv::latest::installed()
-- p6df::modules::python::vscodes()
-- str str = p6df::modules::pip::env::prompt::info()
-- str str = p6df::modules::py::env::prompt::info()
 
 
 
+## Hier
+```text
+.
+├── _pipenv.sh
+├── langs.sh
+└── pyenv.sh
+
+1 directory, 3 files
+```
 ## Author
 
 Philip M . Gollucci <pgollucci@p6m7g8.com>
