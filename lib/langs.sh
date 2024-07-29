@@ -45,7 +45,7 @@ p6df::modules::python::langs::nuke() {
 ######################################################################
 p6df::modules::python::langs::pull() {
 
-  p6_run_dir "$P6_DFZ_SRC_DIR/pyenv/pyenv" p6_git_p6_pull
+  p6_run_dir "$P6_DFZ_SRC_DIR/pyenv/pyenv" p6_git_cli_pull_rebase_autostash_ff_only
 
   p6_return_void
 }
