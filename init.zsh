@@ -134,7 +134,7 @@ p6df::modules::python::init() {
 #  Environment:	 PIPENV_ACTIVE
 #>
 ######################################################################
-p6df::modules::pip::env::prompt::info() {
+p6df::modules::pipenv::prompt::info() {
 
   local env=$(p6_run_code pipenv --venv 2>/dev/null)
   local str
