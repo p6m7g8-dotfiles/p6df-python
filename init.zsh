@@ -126,21 +126,31 @@ p6df::modules::python::init() {
 ######################################################################
 #<
 #
-# Function: str str = p6df::modules::pip::env::prompt::info()
+# Function: str str = p6df::modules::pipenv::prompt::info()
 #
 #  Returns:
 #	str - str
 #
-#  Environment:	 PIPENV_ACTIVE
+#  Environment:	 P6_DFZ_REAL_CMD PIPENV_ACTIVE
 #>
 ######################################################################
 p6df::modules::pipenv::prompt::info() {
 
-  local env=$(p6_run_code pipenv --venv 2>/dev/null)
-  local str
+  local cache_file="/tmp/p6_lang_cache.txt"
+  local cache_key="pipenv"
+
+  case "$P6_DFZ_REAL_CMD" in
+  *pipenv* | *cd*)
+    grep -v "^$cache_key=" "$cache_file" >/tmp/p6_lang_cache.tmp && mv /tmp/p6_lang_cache.tmp "$cache_file"
+    local env=$(p6_run_code pipenv --venv 2>/dev/null)
+    echo "$cache_key=$env" >>"$cache_file"
+    ;;
+  esac
+
+  local env=$(grep -E "^$cache_key=" "$cache_file" | tail -1 | cut -d '=' -f 2)
+
   if ! p6_string_blank "$env"; then
     env=$(p6_uri_name "$env")
-
     local astr
     if p6_string_eq "$PIPENV_ACTIVE" "1"; then
       astr="active"
@@ -148,7 +158,7 @@ p6df::modules::pipenv::prompt::info() {
       astr="off"
     fi
 
-    str="pipenv:\t\t  $env ($astr)"
+    local str="pipenv:\t\t  $env ($astr)"
     p6_return_str "$str"
   else
     p6_return_void
