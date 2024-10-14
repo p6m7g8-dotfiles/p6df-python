@@ -136,18 +136,17 @@ p6df::modules::python::init() {
 ######################################################################
 p6df::modules::pipenv::prompt::info() {
 
-  local cache_file="/tmp/p6_lang_cache.txt"
   local cache_key="pipenv"
 
   case "$P6_DFZ_REAL_CMD" in
   *pipenv* | *cd*)
-    grep -v "^$cache_key=" "$cache_file" >/tmp/p6_lang_cache.tmp && mv /tmp/p6_lang_cache.tmp "$cache_file"
+    grep -v "^$cache_key=" "$P6_DFZ_PROMPT_CACHE" >"$P6_DFZ_PROMPT_CACHE.tmp" && mv "$P6_DFZ_PROMPT_CACHE.tmp" "$P6_DFZ_PROMPT_CACHE"
     local env=$(p6_run_code pipenv --venv 2>/dev/null)
-    echo "$cache_key=$env" >>"$cache_file"
+    echo "$cache_key=$env" >>"$P6_DFZ_PROMPT_CACHE"
     ;;
   esac
 
-  local env=$(grep -E "^$cache_key=" "$cache_file" | tail -1 | cut -d '=' -f 2)
+  local env=$(grep -E "^$cache_key=" "$P6_DFZ_PROMPT_CACHE" | tail -1 | cut -d '=' -f 2)
 
   if ! p6_string_blank "$env"; then
     env=$(p6_uri_name "$env")
