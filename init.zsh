@@ -11,6 +11,7 @@ p6df::modules::python::deps() {
     p6m7g8-dotfiles/p6df-zsh
     p6m7g8-dotfiles/p6python
     pyenv/pyenv
+    ohmyzsh/ohmyzsh:plugins/uv
     ohmyzsh/ohmyzsh:plugins/poetry
     ohmyzsh/ohmyzsh:plugins/poetry-env
   )
@@ -32,6 +33,7 @@ p6df::modules::python::vscodes() {
   code --install-extension ms-python.mypy-type-checker
   code --install-extension ms-python.black-formatter
   code --install-extension ms-python.isort
+  code --install-extension the0807.uv-toolkit
   code --install-extension zeshuaro.vscode-python-poetry
 
   p6_return_void
@@ -60,6 +62,7 @@ p6df::modules::python::external::yum() {
 ######################################################################
 p6df::modules::python::external::brew() {
 
+  p6df::modules::homebrew::cli::brew::install uv
   p6df::modules::homebrew::cli::brew::install watchman
 
   p6_return_void
