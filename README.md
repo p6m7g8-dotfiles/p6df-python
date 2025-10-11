@@ -31,12 +31,10 @@
 - p6df::modules::python::deps()
 - p6df::modules::python::external::brew()
 - p6df::modules::python::external::yum()
-- p6df::modules::python::home::symlink()
 - p6df::modules::python::init(_module, dir)
 - p6df::modules::python::langs()
 - p6df::modules::python::vscodes()
-- str str = p6df::modules::pipenv::prompt::info()
-- str str = p6df::modules::py::env::prompt::info()
+- str str = p6df::modules::uv::env::prompt::info()
 
 ## p6df-python/lib
 
@@ -62,12 +60,12 @@
 
 ```text
 .
-├── README.md
 ├── init.zsh
 ├── lib
 │   ├── _pipenv.sh
 │   ├── langs.sh
 │   └── pyenv.sh
+├── README.md
 └── share
 
 3 directories, 5 files
