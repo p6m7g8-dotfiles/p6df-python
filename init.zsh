@@ -91,7 +91,6 @@ p6df::modules::python::langs() {
 #	_module -
 #	dir -
 #
-#  Environment:	 HOME P6_DFZ_SRC_DIR
 #>
 ######################################################################
 p6df::modules::python::init() {
@@ -109,12 +108,12 @@ p6df::modules::python::init() {
 ######################################################################
 #<
 #
-# Function: str str = p6df::modules::py::env::prompt::info()
+# Function: str str = p6df::modules::uv::env::prompt::info()
 #
 #  Returns:
 #	str - str
 #
-#  Environment:	 PYENV_ROOT PYTHONPATH
+#  Environment:	 PYTHONPATH VIRTUAL_ENV_PROMPT
 #>
 ######################################################################
 p6df::modules::uv::env::prompt::info() {
