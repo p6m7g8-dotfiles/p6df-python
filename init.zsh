@@ -109,7 +109,8 @@ p6df::modules::uv::env::prompt::info() {
     str="uv:\t\t  $ver [$VIRTUAL_ENV_PROMPT] $P6_NL"
   fi
   if ! p6_string_blank "$PYTHONPATH"; then
-    str="${str}pythonpath:\t  $PYTHONPATH $P6_NL"
+    pp=$(echo "$PYTHONPATH" | sed -e "s,$HOME,\$HOME,g")
+    str="${str}pythonpath:\t  $pp $P6_NL"
   fi
 
   p6_return_str "$str"
