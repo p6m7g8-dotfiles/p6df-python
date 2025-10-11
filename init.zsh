@@ -69,22 +69,6 @@ p6df::modules::python::external::brew() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::python::langs()
-#
-#>
-######################################################################
-p6df::modules::python::langs() {
-
-  p6df::modules::python::langs::pull
-  p6df::modules::python::langs::nuke
-  p6df::modules::python::langs::install
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
 # Function: p6df::modules::python::init(_module, dir)
 #
 #  Args:

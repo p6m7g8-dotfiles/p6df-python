@@ -32,43 +32,18 @@
 - p6df::modules::python::external::brew()
 - p6df::modules::python::external::yum()
 - p6df::modules::python::init(_module, dir)
-- p6df::modules::python::langs()
 - p6df::modules::python::vscodes()
 - str str = p6df::modules::uv::env::prompt::info()
-
-## p6df-python/lib
-
-### p6df-python/lib/langs.sh
-
-- p6df::modules::python::langs::install()
-- p6df::modules::python::langs::nuke()
-- p6df::modules::python::langs::pip()
-- p6df::modules::python::langs::pip::upgrade()
-- p6df::modules::python::langs::pipenv()
-- p6df::modules::python::langs::poetry()
-- p6df::modules::python::langs::pull()
-- p6df::modules::python::langs::whls()
-
-### p6df-python/lib/pyenv.sh
-
-- p6df::modules::python::langs::pip()
-- p6df::modules::python::langs::pip::upgrade()
-- p6df::modules::python::pyenv::latest()
-- p6df::modules::python::pyenv::latest::installed()
 
 ## Hierarchy
 
 ```text
 .
 ├── init.zsh
-├── lib
-│   ├── _pipenv.sh
-│   ├── langs.sh
-│   └── pyenv.sh
 ├── README.md
 └── share
 
-3 directories, 5 files
+2 directories, 2 files
 ```
 
 ## Author
