@@ -5,31 +5,37 @@ queue_rules:
 
       {{ body }}
     merge_method: squash
+
 pull_request_rules:
   - name: put PRs in queue (squash)
     conditions:
-      - base = main
+      - base=main
       - "#approved-reviews-by>=1"
       - -label~=(do-not-merge)
       - status-success=build
     actions:
       queue:
+        name: default
         merge_method: squash
+
   - name: Label core contributions
+    conditions:
+      - author~=^(pgollucci)$
+      - label!=contribution/core
     actions:
       label:
         add:
           - contribution/core
-    conditions:
-      - author~=^(pgollucci)$
-      - label!=contribution/core
+
   - name: Label auto-merge for core
+    conditions:
+      - label=contribution/core
+      - label!=auto-merge
     actions:
       label:
         add:
           - auto-merge
-    conditions:
-      - label=contribution/core
-      - label!=auto-merge
+
 merge_queue:
   max_parallel_checks: 1
+
