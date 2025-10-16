@@ -40,10 +40,11 @@
 ```text
 .
 ├── init.zsh
+├── lib
 ├── README.md
 └── share
 
-2 directories, 2 files
+3 directories, 2 files
 ```
 
 ## Author
