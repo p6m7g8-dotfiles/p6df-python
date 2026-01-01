@@ -10,7 +10,8 @@ p6df::modules::python::deps() {
   ModuleDeps=(
     p6m7g8-dotfiles/p6df-zsh
     p6m7g8-dotfiles/p6python
-    astral-sh/zsh-uv-env
+    matthiasha/zsh-uv-env
+    astral-sh/uvz
     ohmyzsh/ohmyzsh:plugins/uv
   )
 }
