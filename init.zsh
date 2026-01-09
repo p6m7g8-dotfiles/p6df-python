@@ -24,18 +24,25 @@ p6df::modules::python::deps() {
 ######################################################################
 p6df::modules::python::vscodes() {
 
-  code --install-extension FedericoVarela.pipenv-scripts
+  code --install-extension ms-python.python
   code --install-extension ms-python.vscode-pylance
-  code --install-extension ms-python.pylint
-  code --install-extension ms-python.flake8
-  code --install-extension ms-python.mypy-type-checker
   code --install-extension ms-python.black-formatter
   code --install-extension ms-python.isort
+  code --install-extension ms-python.mypy-type-checker
+  code --install-extension ms-python.flake8
   code --install-extension the0807.uv-toolkit
-  code --install-extension zeshuaro.vscode-python-poetry
 
   p6_return_void
 }
+
+#{
+#  "python.analysis.typeCheckingMode": "basic",
+#  "python.formatting.provider": "none",
+#  "editor.formatOnSave": true,
+#  "[python]": {
+#    "editor.defaultFormatter": "ms-python.black-formatter"
+#  }
+#}
 
 ######################################################################
 #<
