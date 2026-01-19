@@ -104,7 +104,7 @@ p6df::modules::python::init() {
 #  Returns:
 #	str - str
 #
-#  Environment:	 PYTHONPATH VIRTUAL_ENV_PROMPT
+#  Environment:	 P6_NL PYTHONPATH VIRTUAL_ENV_PROMPT
 #>
 ######################################################################
 p6df::modules::python::prompt::env() {
