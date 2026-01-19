@@ -134,19 +134,11 @@ p6df::modules::python::prompt::env() {
 ######################################################################
 p6df::modules::python::prompt::lang() {
 
-  local str=""
-
-  local ver=$(uv python pin 2>/dev/null)
-  if ! p6_string_blank "$ver"; then
-    str="py:$ver"
-  else
-    local sys_ver=$(python --version 2>/dev/null | awk '{print $2}')
-    if ! p6_string_blank "$sys_ver"; then
-      str="py:sys@$sys_ver"
-    else
-      str="py:no"
-    fi
-  fi
+  local str
+  str=$(p6df::core::lang::prompt::lang \
+    "py" \
+    "uv python pin 2>/dev/null" \
+    "python --version 2>/dev/null | awk '{print $2}'")
 
   p6_return_str "$str"
 }
