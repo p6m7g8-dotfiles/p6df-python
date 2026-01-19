@@ -5,8 +5,6 @@
 ## Badges
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-yellowgreen.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Mergify](https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges//p6df-python/&style=flat)](https://mergify.io)
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](<https://gitpod.io/#https://github.com//p6df-python>)
 
 ## Summary
 
@@ -33,7 +31,8 @@
 - p6df::modules::python::external::yum()
 - p6df::modules::python::init(_module, dir)
 - p6df::modules::python::vscodes()
-- str str = p6df::modules::uv::env::prompt::info()
+- str str = p6df::modules::python::prompt::env()
+- str str = p6df::modules::python::prompt::lang()
 
 ## Hierarchy
 
