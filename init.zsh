@@ -83,6 +83,7 @@ p6df::modules::python::external::brew() {
 #	_module -
 #	dir -
 #
+#  Environment:	 HOME
 #>
 ######################################################################
 p6df::modules::python::init() {
@@ -90,9 +91,7 @@ p6df::modules::python::init() {
   local dir="$2"
 
   p6_bootstrap "$dir"
-
-  p6df::core::lang::mgr::init2 "py"
-  # eval "$($bin init --path)"
+  p6_path_if "$HOME/.local/bin"
 
   p6_return_void
 }
@@ -100,25 +99,53 @@ p6df::modules::python::init() {
 ######################################################################
 #<
 #
-# Function: str str = p6df::modules::uv::env::prompt::info()
+# Function: str str = p6df::modules::python::prompt::env()
 #
 #  Returns:
 #	str - str
 #
-#  Environment:	 P6_NL PYTHONPATH VIRTUAL_ENV_PROMPT
+#  Environment:	 PYTHONPATH VIRTUAL_ENV_PROMPT
 #>
 ######################################################################
-p6df::modules::uv::env::prompt::info() {
+p6df::modules::python::prompt::env() {
 
   local str=""
 
   local ver=$(uv python pin 2>/dev/null)
   if ! p6_string_blank "$ver"; then
-    str="uv:\t\t  $ver [$VIRTUAL_ENV_PROMPT] $P6_NL"
+    str="uv:\t\t  $VIRTUAL_ENV_PROMPT$P6_NL"
   fi
   if ! p6_string_blank "$PYTHONPATH"; then
-    pp=$(echo "$PYTHONPATH" | sed -e "s,$HOME,\$HOME,g")
-    str="${str}pythonpath:\t  $pp $P6_NL"
+    str="${str}pythonpath:\t  $PYTHONPATH$P6_NL"
+  fi
+
+  p6_return_str "$str"
+}
+
+######################################################################
+#<
+#
+# Function: str str = p6df::modules::python::prompt::lang()
+#
+#  Returns:
+#	str - str
+#
+#>
+######################################################################
+p6df::modules::python::prompt::lang() {
+
+  local str=""
+
+  local ver=$(uv python pin 2>/dev/null)
+  if ! p6_string_blank "$ver"; then
+    str="py:$ver"
+  else
+    local sys_ver=$(python --version 2>/dev/null | awk '{print $2}')
+    if ! p6_string_blank "$sys_ver"; then
+      str="py:sys@$sys_ver"
+    else
+      str="py:no"
+    fi
   fi
 
   p6_return_str "$str"
