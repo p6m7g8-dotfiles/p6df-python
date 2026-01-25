@@ -138,7 +138,7 @@ p6df::modules::python::prompt::lang() {
   str=$(p6df::core::lang::prompt::lang \
     "py" \
     "uv python pin 2>/dev/null" \
-    "python --version 2>/dev/null | awk '{print $2}'")
+    "python --version 2>/dev/null | p6_filter_column_pluck 2")
 
   p6_return_str "$str"
 }
