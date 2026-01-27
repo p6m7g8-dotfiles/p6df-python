@@ -25,25 +25,55 @@ p6df::modules::python::deps() {
 ######################################################################
 p6df::modules::python::vscodes() {
 
-  code --install-extension ms-python.python
-  code --install-extension ms-python.vscode-pylance
-  code --install-extension ms-python.black-formatter
-  code --install-extension ms-python.isort
-  code --install-extension ms-python.mypy-type-checker
-  code --install-extension ms-python.flake8
-  code --install-extension the0807.uv-toolkit
+  p6df::modules::vscode::extension::install ms-python.python
+  p6df::modules::vscode::extension::install ms-python.vscode-pylance
+  p6df::modules::vscode::extension::install ms-python.black-formatter
+  p6df::modules::vscode::extension::install ms-python.isort
+  p6df::modules::vscode::extension::install ms-python.mypy-type-checker
+  p6df::modules::vscode::extension::install ms-python.flake8
+  p6df::modules::vscode::extension::install the0807.uv-toolkit
 
   p6_return_void
 }
 
-#{
-#  "python.analysis.typeCheckingMode": "basic",
-#  "python.formatting.provider": "none",
-#  "editor.formatOnSave": true,
-#  "[python]": {
-#    "editor.defaultFormatter": "ms-python.black-formatter"
-#  }
-#}
+######################################################################
+#<
+#
+# Function: str json = p6df::modules::python::vscodes::config()
+#
+#  Returns:
+#	str - json
+#
+#>
+######################################################################
+p6df::modules::python::vscodes::config() {
+
+  cat <<'EOF'
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true
+  },
+  "black-formatter.importStrategy": "fromEnvironment",
+  "flake8.importStrategy": "fromEnvironment",
+  "flake8.args": ["--max-line-length=120"],
+  "mypy-type-checker.importStrategy": "fromEnvironment",
+  "isort.args": ["--profile", "black"],
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.languageServer": "Pylance",
+  "python.formatting.provider": "none",
+  "python.terminal.activateEnvironment": true,
+  "python.terminal.executeInFileDir": true,
+  "python.terminal.launchArgs": ["--none"],
+  "python.testing.pytestEnabled": true,
+  "sonarlint.rules": {
+    "python:S1192": { "level": "off" },
+    "python:S3776": { "level": "off" }
+  }
+EOF
+
+  p6_return_void
+}
 
 ######################################################################
 #<
