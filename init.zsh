@@ -142,10 +142,10 @@ p6df::modules::python::prompt::env() {
   local str=""
 
   local ver=$(uv python pin 2>/dev/null)
-  if ! p6_string_blank "$ver"; then
+  if p6_string_blank_NOT "$ver"; then
     str="uv:\t\t  $VIRTUAL_ENV_PROMPT$P6_NL"
   fi
-  if ! p6_string_blank "$PYTHONPATH"; then
+  if p6_string_blank_NOT "$PYTHONPATH"; then
     str="${str}pythonpath:\t  $PYTHONPATH$P6_NL"
   fi
 
