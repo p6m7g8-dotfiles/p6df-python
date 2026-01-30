@@ -143,7 +143,7 @@ p6df::modules::python::prompt::env() {
 
   local ver=$(uv python pin 2>/dev/null)
   if p6_string_blank_NOT "$ver"; then
-    str="uv:\t\t  $VIRTUAL_ENV_PROMPT$P6_NL"
+    str="uv:\t\t  ${VIRTUAL_ENV_PROMPT:-none}$P6_NL"
   fi
   if p6_string_blank_NOT "$PYTHONPATH"; then
     str="${str}pythonpath:\t  $PYTHONPATH$P6_NL"
@@ -168,7 +168,7 @@ p6df::modules::python::prompt::lang() {
   str=$(p6df::core::lang::prompt::lang \
     "py" \
     "uv python pin 2>/dev/null" \
-    "python --version 2>/dev/null | p6_filter_column_pluck 2")
+    "python3 --version 2>/dev/null | p6_filter_column_pluck 2")
 
   p6_return_str "$str"
 }
