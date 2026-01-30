@@ -11,7 +11,7 @@ p6df::modules::python::deps() {
     p6m7g8-dotfiles/p6df-zsh
     p6m7g8-dotfiles/p6python
     matthiasha/zsh-uv-env
-    astral-sh/uvz
+    astral-sh/uv
     ohmyzsh/ohmyzsh:plugins/uv
   )
 }
