@@ -39,10 +39,7 @@ p6df::modules::python::vscodes() {
 ######################################################################
 #<
 #
-# Function: str json = p6df::modules::python::vscodes::config()
-#
-#  Returns:
-#	str - json
+# Function: p6df::modules::python::vscodes::config()
 #
 #>
 ######################################################################

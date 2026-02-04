@@ -39,7 +39,11 @@ TODO: Add a short summary of this module.
 - `p6df::modules::python::external::brew()`
 - `p6df::modules::python::external::yum()`
 - `p6df::modules::python::init(_module, dir)`
+  - Args:
+    - _module - 
+    - dir - 
 - `p6df::modules::python::vscodes()`
+- `p6df::modules::python::vscodes::config()`
 - `str str = p6df::modules::python::prompt::env()`
 - `str str = p6df::modules::python::prompt::lang()`
 
