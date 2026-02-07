@@ -8,7 +8,6 @@
 ######################################################################
 p6df::modules::python::deps() {
   ModuleDeps=(
-    p6m7g8-dotfiles/p6df-zsh
     p6m7g8-dotfiles/p6python
     matthiasha/zsh-uv-env
     astral-sh/uv
@@ -47,26 +46,88 @@ p6df::modules::python::vscodes::config() {
 
   cat <<'EOF'
   "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter",
-    "editor.formatOnSave": true
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always"
   },
   "black-formatter.importStrategy": "fromEnvironment",
   "flake8.importStrategy": "fromEnvironment",
-  "flake8.args": ["--max-line-length=120"],
   "mypy-type-checker.importStrategy": "fromEnvironment",
-  "isort.args": ["--profile", "black"],
   "python.analysis.autoSearchPaths": true,
   "python.analysis.typeCheckingMode": "basic",
   "python.languageServer": "Pylance",
-  "python.formatting.provider": "none",
   "python.terminal.activateEnvironment": true,
   "python.terminal.executeInFileDir": true,
   "python.terminal.launchArgs": ["--none"],
-  "python.testing.pytestEnabled": true,
-  "sonarlint.rules": {
-    "python:S1192": { "level": "off" },
-    "python:S3776": { "level": "off" }
-  }
+  "python.testing.pytestEnabled": true
+EOF
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::python::pyproject::toml()
+#
+#>
+######################################################################
+p6df::modules::python::pyproject::toml() {
+
+  cat <<'EOF'
+[project]
+name = "p6-template-uv"
+dynamic = ["version"]
+requires-python = "==3.14.2"
+dependencies = [
+  "docopt",
+]
+
+[dependency-groups]
+dev = [
+  "bandit",
+  "black",
+  "codespell",
+  "coverage",
+  "detect-secrets",
+  "flake8",
+  "isort",
+  "pip-audit",
+  "pre-commit",
+  "pydocstyle",
+  "pylint",
+  "pymarkdownlnt",
+  "pyre-check",
+  "pyre-extensions",
+  "pytest",
+  "pytest-cov",
+  "shellcheck-py",
+  "yamllint",
+]
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.uv]
+index-url = "https://pypi.org/simple"
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+line_length = 120
+
+[tool.flake8]
+max-line-length = 120
+extend-ignore = ["E203"]
+
+[tool.pylint.format]
+max-line-length = 120
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 EOF
 
   p6_return_void
