@@ -24,11 +24,16 @@ p6df::modules::python::deps() {
 ######################################################################
 p6df::modules::python::vscodes() {
 
+#  p6df::modules::vscode::extension::install ms-python.mypy-type-checker
+#  p6df::modules::vscode::extension::install ms-python.pylint
+
   p6df::modules::vscode::extension::install ms-python.python
-  p6df::modules::vscode::extension::install ms-python.vscode-pylance
+  # included above
+  # p6df::modules::vscode::extension::install ms-python.vscode-pylance
+  # p6df::modules::vscode::extension::install ms-python.vscode-python-envs
+  # p6df::modules::vscode::extension::install ms-python.debugpy
   p6df::modules::vscode::extension::install ms-python.black-formatter
   p6df::modules::vscode::extension::install ms-python.isort
-  p6df::modules::vscode::extension::install ms-python.mypy-type-checker
   p6df::modules::vscode::extension::install ms-python.flake8
   p6df::modules::vscode::extension::install the0807.uv-toolkit
 
@@ -44,6 +49,8 @@ p6df::modules::python::vscodes() {
 ######################################################################
 p6df::modules::python::vscodes::config() {
 
+#  "mypy-type-checker.importStrategy": "fromEnvironment",
+
   cat <<'EOF'
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter"
@@ -53,13 +60,9 @@ p6df::modules::python::vscodes::config() {
   },
   "black-formatter.importStrategy": "fromEnvironment",
   "flake8.importStrategy": "fromEnvironment",
-  "mypy-type-checker.importStrategy": "fromEnvironment",
-  "python.analysis.autoSearchPaths": true,
   "python.analysis.typeCheckingMode": "basic",
   "python.languageServer": "Pylance",
-  "python.terminal.activateEnvironment": true,
   "python.terminal.executeInFileDir": true,
-  "python.terminal.launchArgs": ["--none"],
   "python.testing.pytestEnabled": true
 EOF
 
