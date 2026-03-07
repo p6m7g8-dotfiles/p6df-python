@@ -233,3 +233,17 @@ p6df::modules::python::prompt::lang() {
 
   p6_return_str "$str"
 }
+
+######################################################################
+#<
+#
+# Function: p6df::modules::python::mcp()
+#
+#>
+######################################################################
+p6df::modules::python::mcp() {
+
+  uv tool install mcp-pypi
+
+  p6_return_void
+}
