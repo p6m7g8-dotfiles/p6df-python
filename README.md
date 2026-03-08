@@ -17,9 +17,8 @@
 
 ## Summary
 
-p6df module for Python: uv/pyenv version management, virtualenv helpers,
-VSCode extensions, and MCP server (`mcp-pypi` via `uv tool install`) for
-AI-driven PyPI package discovery and dependency analysis.
+p6df module for Python: pyenv, pip, and virtual environment tooling,
+plus MCP server (`mcp-pypi` via uvx) for AI-driven PyPI package intelligence.
 
 ## Contributing
 
