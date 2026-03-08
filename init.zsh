@@ -243,7 +243,7 @@ p6df::modules::python::prompt::lang() {
 ######################################################################
 p6df::modules::python::mcp() {
 
-  uv tool install mcp-pypi
+  uvx mcp-pypi
 
   p6_return_void
 }
