@@ -12,6 +12,7 @@ p6df::modules::python::deps() {
     matthiasha/zsh-uv-env
     astral-sh/uv
     ohmyzsh/ohmyzsh:plugins/uv
+    rohitg00/awesome-claude-code-toolkit:agents/language-experts/python-engineer.md
   )
 }
 
@@ -207,7 +208,10 @@ p6df::modules::python::prompt::env() {
     str="uv:\t\t  ${VIRTUAL_ENV_PROMPT:-none}$P6_NL"
   fi
   if p6_string_blank_NOT "$PYTHONPATH"; then
-    str="${str}pythonpath:\t  $PYTHONPATH$P6_NL"
+    case $PYTHONPATH in
+      $P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6python/lib) str="" ;;
+      *) str="${str}pythonpath:\t  $PYTHONPATH$P6_NL" ;;
+    esac
   fi
 
   p6_return_str "$str"
