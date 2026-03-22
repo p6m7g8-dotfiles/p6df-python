@@ -209,7 +209,7 @@ p6df::modules::python::prompt::env() {
   fi
   if p6_string_blank_NOT "$PYTHONPATH"; then
     case $PYTHONPATH in
-      "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6python/lib") str="" ;;
+      "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6python/lib") : ;;
       *) str="${str}pythonpath:\t  $PYTHONPATH$P6_NL" ;;
     esac
   fi
