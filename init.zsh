@@ -251,3 +251,26 @@ p6df::modules::python::mcp() {
 
   p6_return_void
 }
+
+######################################################################
+#<
+#
+# Function: p6_python_uv_tool_install(pkg)
+#
+#  Args:
+#	pkg - package name or VCS reference
+#
+#>
+######################################################################
+p6_python_uv_tool_install() {
+  local pkg="$1"
+
+  (
+    cd ~ || return
+    uv tool uninstall "$pkg"
+    uv tool install "$pkg"
+    uv tool list
+  )
+
+  p6_return_void
+}
