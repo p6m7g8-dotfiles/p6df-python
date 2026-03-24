@@ -271,4 +271,6 @@ p6_python_uv_tool_install() {
     uv tool install "$pkg"
     uv tool list
   )
+
+  p6_return_void
 }
