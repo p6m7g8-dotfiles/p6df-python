@@ -266,7 +266,7 @@ p6_python_uv_tool_install() {
   local pkg="$1"
 
   (
-    cd ~
+    cd ~ || return
     uv tool uninstall "$pkg"
     uv tool install "$pkg"
     uv tool list
