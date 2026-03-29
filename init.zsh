@@ -154,6 +154,20 @@ p6df::modules::python::external::yum() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::python::home::symlinks()
+#
+#>
+######################################################################
+p6df::modules::python::home::symlinks() {
+
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-python/share/.pip" "$HOME/.pip"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
 # Function: p6df::modules::python::external::brews()
 #
 #>
