@@ -154,11 +154,11 @@ p6df::modules::python::external::yum() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::python::external::brew()
+# Function: p6df::modules::python::external::brews()
 #
 #>
 ######################################################################
-p6df::modules::python::external::brew() {
+p6df::modules::python::external::brews() {
 
   p6df::core::homebrew::cli::brew::install uv
   p6df::core::homebrew::cli::brew::install watchman
