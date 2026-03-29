@@ -247,7 +247,10 @@ p6df::modules::python::prompt::lang() {
 ######################################################################
 p6df::modules::python::mcp() {
 
-  uvx mcp-pypi
+  p6_python_uv_tool_install "mcp-pypi"
+
+  p6df::modules::anthropic::mcp::server::add "python" "uvx" "mcp-pypi"
+  p6df::modules::openai::mcp::server::add "python" "uvx" "mcp-pypi"
 
   p6_return_void
 }
