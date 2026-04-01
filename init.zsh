@@ -140,22 +140,9 @@ EOF
 ######################################################################
 #<
 #
-# Function: p6df::modules::python::external::yum()
-#
-#>
-######################################################################
-p6df::modules::python::external::yum() {
-
-  sudo yum install gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
 # Function: p6df::modules::python::home::symlinks()
 #
+#  Environment:	 HOME P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
 p6df::modules::python::home::symlinks() {
@@ -183,20 +170,15 @@ p6df::modules::python::external::brews() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::python::init(_module, dir)
-#
-#  Args:
-#	_module -
-#	dir -
+# Function: p6df::modules::python::path::init()
 #
 #  Environment:	 HOME
 #>
 ######################################################################
-p6df::modules::python::init() {
-  local _module="$1"
-  local dir="$2"
+p6df::modules::python::path::init() {
 
-  p6_bootstrap "$dir"
+  local _module="$1"
+  local _dir="$2"
   p6_path_if "$HOME/.local/bin"
 
   p6_return_void
@@ -205,27 +187,24 @@ p6df::modules::python::init() {
 ######################################################################
 #<
 #
-# Function: str str = p6df::modules::python::prompt::env()
+# Function: str str = p6df::modules::python::prompt::runtime()
 #
 #  Returns:
 #	str - str
 #
-#  Environment:	 P6_NL PYTHONPATH VIRTUAL_ENV_PROMPT
+#  Environment:	 P6_DFZ_SRC_P6M7G8_DOTFILES_DIR P6_NL PYTHONPATH VIRTUAL_ENV_PROMPT
 #>
 ######################################################################
-p6df::modules::python::prompt::env() {
+p6df::modules::python::prompt::system() {
 
   local str=""
 
   local ver=$(uv python pin 2>/dev/null)
   if p6_string_blank_NOT "$ver"; then
-    str="uv:\t\t  ${VIRTUAL_ENV_PROMPT:-none}$P6_NL"
+    str="$(p6_string_space_pad "uv:" 16)${VIRTUAL_ENV_PROMPT:-none}$P6_NL"
   fi
   if p6_string_blank_NOT "$PYTHONPATH"; then
-    case $PYTHONPATH in
-      "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6python/lib") : ;;
-      *) str="${str}pythonpath:\t  $PYTHONPATH$P6_NL" ;;
-    esac
+    str="${str}$(p6_string_space_pad "pythonpath:" 16)$PYTHONPATH$P6_NL"
   fi
 
   p6_return_str "$str"
@@ -275,8 +254,9 @@ p6df::modules::python::mcp() {
 # Function: p6_python_uv_tool_install(pkg)
 #
 #  Args:
-#	pkg - package name or VCS reference
+#	pkg -
 #
+#  Environment:	 HOME
 #>
 ######################################################################
 p6_python_uv_tool_install() {
