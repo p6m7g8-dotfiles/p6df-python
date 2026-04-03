@@ -198,13 +198,12 @@ p6df::modules::python::path::init() {
 p6df::modules::python::prompt::system() {
 
   local str=""
-
   local ver=$(uv python pin 2>/dev/null)
   if p6_string_blank_NOT "$ver"; then
     str="$(p6_string_space_pad "uv:" 16)${VIRTUAL_ENV_PROMPT:-none}$P6_NL"
   fi
   if p6_string_blank_NOT "$PYTHONPATH"; then
-    str="${str}$(p6_string_space_pad "pythonpath:" 16)$PYTHONPATH$P6_NL"
+    str="${str}$(p6_string_space_pad "python:" 16)$PYTHONPATH$P6_NL"
   fi
 
   p6_return_str "$str"
