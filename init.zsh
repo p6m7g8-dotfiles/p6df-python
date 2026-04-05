@@ -1,5 +1,11 @@
 # shellcheck shell=bash
 ######################################################################
+#<
+#
+# Function: p6df::modules::python::deps()
+#
+#>
+######################################################################
 p6df::modules::python::deps() {
   ModuleDeps=(
     p6m7g8-dotfiles/p6python
@@ -11,6 +17,13 @@ p6df::modules::python::deps() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::python::path::init()
+#
+#  Environment:	 HOME
+#>
+######################################################################
 p6df::modules::python::path::init() {
 
   local _module="$1"
@@ -21,6 +34,13 @@ p6df::modules::python::path::init() {
 }
 
 ######################################################################
+#<
+#
+# Function: p6df::modules::python::home::symlinks()
+#
+#  Environment:	 HOME P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#>
+######################################################################
 p6df::modules::python::home::symlinks() {
 
   p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-python/share/.pip" "$HOME/.pip"
@@ -28,6 +48,12 @@ p6df::modules::python::home::symlinks() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::python::external::brews()
+#
+#>
 ######################################################################
 p6df::modules::python::external::brews() {
 
@@ -37,6 +63,12 @@ p6df::modules::python::external::brews() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::python::mcp()
+#
+#>
 ######################################################################
 p6df::modules::python::mcp() {
 
@@ -48,6 +80,12 @@ p6df::modules::python::mcp() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::python::vscodes()
+#
+#>
 ######################################################################
 p6df::modules::python::vscodes() {
 
@@ -67,6 +105,12 @@ p6df::modules::python::vscodes() {
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::python::vscodes::config()
+#
+#>
 ######################################################################
 p6df::modules::python::vscodes::config() {
 
@@ -90,24 +134,6 @@ EOF
   p6_return_void
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::python::deps()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::python::vscodes()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::python::vscodes::config()
-#
-#>
 ######################################################################
 #<
 #
@@ -178,26 +204,6 @@ EOF
 ######################################################################
 #<
 #
-# Function: p6df::modules::python::home::symlinks()
-#
-#  Environment:	 HOME P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::python::external::brews()
-#
-#>
-######################################################################
-#<
-#
-# Function: p6df::modules::python::path::init()
-#
-#  Environment:	 HOME
-#>
-######################################################################
-#<
-#
 # Function: str str = p6df::modules::python::prompt::runtime()
 #
 #  Returns:
@@ -241,12 +247,6 @@ p6df::modules::python::prompt::lang() {
   p6_return_str "$str"
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::python::mcp()
-#
-#>
 ######################################################################
 #<
 #
