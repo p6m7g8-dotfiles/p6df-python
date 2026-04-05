@@ -1,11 +1,5 @@
 # shellcheck shell=bash
 ######################################################################
-#<
-#
-# Function: p6df::modules::python::deps()
-#
-#>
-######################################################################
 p6df::modules::python::deps() {
   ModuleDeps=(
     p6m7g8-dotfiles/p6python
@@ -17,11 +11,43 @@ p6df::modules::python::deps() {
 }
 
 ######################################################################
-#<
-#
-# Function: p6df::modules::python::vscodes()
-#
-#>
+p6df::modules::python::path::init() {
+
+  local _module="$1"
+  local _dir="$2"
+  p6_path_if "$HOME/.local/bin"
+
+  p6_return_void
+}
+
+######################################################################
+p6df::modules::python::home::symlinks() {
+
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-python/share/.pip" "$HOME/.pip"
+
+  p6_return_void
+}
+
+######################################################################
+p6df::modules::python::external::brews() {
+
+  p6df::core::homebrew::cli::brew::install uv
+  p6df::core::homebrew::cli::brew::install watchman
+
+  p6_return_void
+}
+
+######################################################################
+p6df::modules::python::mcp() {
+
+  p6_python_uv_tool_install "mcp-pypi"
+
+  p6df::modules::anthropic::mcp::server::add "python" "uvx" "mcp-pypi"
+  p6df::modules::openai::mcp::server::add "python" "uvx" "mcp-pypi"
+
+  p6_return_void
+}
+
 ######################################################################
 p6df::modules::python::vscodes() {
 
@@ -41,12 +67,6 @@ p6df::modules::python::vscodes() {
   p6_return_void
 }
 
-######################################################################
-#<
-#
-# Function: p6df::modules::python::vscodes::config()
-#
-#>
 ######################################################################
 p6df::modules::python::vscodes::config() {
 
@@ -70,6 +90,24 @@ EOF
   p6_return_void
 }
 
+######################################################################
+#<
+#
+# Function: p6df::modules::python::deps()
+#
+#>
+######################################################################
+#<
+#
+# Function: p6df::modules::python::vscodes()
+#
+#>
+######################################################################
+#<
+#
+# Function: p6df::modules::python::vscodes::config()
+#
+#>
 ######################################################################
 #<
 #
@@ -145,28 +183,11 @@ EOF
 #  Environment:	 HOME P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
 #>
 ######################################################################
-p6df::modules::python::home::symlinks() {
-
-  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-python/share/.pip" "$HOME/.pip"
-
-  p6_return_void
-}
-
-######################################################################
 #<
 #
 # Function: p6df::modules::python::external::brews()
 #
 #>
-######################################################################
-p6df::modules::python::external::brews() {
-
-  p6df::core::homebrew::cli::brew::install uv
-  p6df::core::homebrew::cli::brew::install watchman
-
-  p6_return_void
-}
-
 ######################################################################
 #<
 #
@@ -174,16 +195,6 @@ p6df::modules::python::external::brews() {
 #
 #  Environment:	 HOME
 #>
-######################################################################
-p6df::modules::python::path::init() {
-
-  local _module="$1"
-  local _dir="$2"
-  p6_path_if "$HOME/.local/bin"
-
-  p6_return_void
-}
-
 ######################################################################
 #<
 #
@@ -236,17 +247,6 @@ p6df::modules::python::prompt::lang() {
 # Function: p6df::modules::python::mcp()
 #
 #>
-######################################################################
-p6df::modules::python::mcp() {
-
-  p6_python_uv_tool_install "mcp-pypi"
-
-  p6df::modules::anthropic::mcp::server::add "python" "uvx" "mcp-pypi"
-  p6df::modules::openai::mcp::server::add "python" "uvx" "mcp-pypi"
-
-  p6_return_void
-}
-
 ######################################################################
 #<
 #
