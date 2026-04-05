@@ -19,6 +19,70 @@ p6df::modules::python::deps() {
 ######################################################################
 #<
 #
+# Function: p6df::modules::python::path::init()
+#
+#  Environment:	 HOME
+#>
+######################################################################
+p6df::modules::python::path::init() {
+
+  local _module="$1"
+  local _dir="$2"
+  p6_path_if "$HOME/.local/bin"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::python::home::symlinks()
+#
+#  Environment:	 HOME P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
+#>
+######################################################################
+p6df::modules::python::home::symlinks() {
+
+  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-python/share/.pip" "$HOME/.pip"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::python::external::brews()
+#
+#>
+######################################################################
+p6df::modules::python::external::brews() {
+
+  p6df::core::homebrew::cli::brew::install uv
+  p6df::core::homebrew::cli::brew::install watchman
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6df::modules::python::mcp()
+#
+#>
+######################################################################
+p6df::modules::python::mcp() {
+
+  p6_python_uv_tool_install "mcp-pypi"
+
+  p6df::modules::anthropic::mcp::server::add "python" "uvx" "mcp-pypi"
+  p6df::modules::openai::mcp::server::add "python" "uvx" "mcp-pypi"
+
+  p6_return_void
+}
+
+######################################################################
+#<
+#
 # Function: p6df::modules::python::vscodes()
 #
 #>
@@ -140,53 +204,6 @@ EOF
 ######################################################################
 #<
 #
-# Function: p6df::modules::python::home::symlinks()
-#
-#  Environment:	 HOME P6_DFZ_SRC_P6M7G8_DOTFILES_DIR
-#>
-######################################################################
-p6df::modules::python::home::symlinks() {
-
-  p6_file_symlink "$P6_DFZ_SRC_P6M7G8_DOTFILES_DIR/p6df-python/share/.pip" "$HOME/.pip"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::python::external::brews()
-#
-#>
-######################################################################
-p6df::modules::python::external::brews() {
-
-  p6df::core::homebrew::cli::brew::install uv
-  p6df::core::homebrew::cli::brew::install watchman
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::python::path::init()
-#
-#  Environment:	 HOME
-#>
-######################################################################
-p6df::modules::python::path::init() {
-
-  local _module="$1"
-  local _dir="$2"
-  p6_path_if "$HOME/.local/bin"
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
 # Function: str str = p6df::modules::python::prompt::runtime()
 #
 #  Returns:
@@ -228,23 +245,6 @@ p6df::modules::python::prompt::lang() {
     "python3 --version 2>/dev/null | p6_filter_column_pluck 2")
 
   p6_return_str "$str"
-}
-
-######################################################################
-#<
-#
-# Function: p6df::modules::python::mcp()
-#
-#>
-######################################################################
-p6df::modules::python::mcp() {
-
-  p6_python_uv_tool_install "mcp-pypi"
-
-  p6df::modules::anthropic::mcp::server::add "python" "uvx" "mcp-pypi"
-  p6df::modules::openai::mcp::server::add "python" "uvx" "mcp-pypi"
-
-  p6_return_void
 }
 
 ######################################################################
