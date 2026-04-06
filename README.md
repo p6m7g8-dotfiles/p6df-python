@@ -17,8 +17,7 @@
 
 ## Summary
 
-p6df module for Python: pyenv, pip, and virtual environment tooling,
-plus MCP server (`mcp-pypi` via uvx) for AI-driven PyPI package intelligence.
+TODO: Add a short summary of this module.
 
 ## Contributing
 
@@ -37,18 +36,29 @@ plus MCP server (`mcp-pypi` via uvx) for AI-driven PyPI package intelligence.
 ##### p6df-python/init.zsh
 
 - `p6df::modules::python::deps()`
-- `p6df::modules::python::external::brew()`
-- `p6df::modules::python::external::yum()`
-- `p6df::modules::python::init(_module, dir)`
+- `p6df::modules::python::external::brews()`
+- `p6df::modules::python::home::symlinks()`
+- `p6df::modules::python::mcp()`
+- `p6df::modules::python::path::init(_module, _dir)`
   - Args:
     - _module
-    - dir
-- `p6df::modules::python::mcp()`
-- `p6df::modules::python::pyproject::toml()`
+    - _dir
 - `p6df::modules::python::vscodes()`
 - `p6df::modules::python::vscodes::config()`
-- `str str = p6df::modules::python::prompt::env()`
 - `str str = p6df::modules::python::prompt::lang()`
+- `str str = p6df::modules::python::prompt::system()`
+
+#### p6df-python/lib
+
+##### p6df-python/lib/pyproject.zsh
+
+- `p6df::modules::python::pyproject::toml()`
+
+##### p6df-python/lib/uv.zsh
+
+- `p6_python_uv_tool_install(pkg)`
+  - Args:
+    - pkg
 
 ## Hierarchy
 
@@ -56,10 +66,12 @@ plus MCP server (`mcp-pypi` via uvx) for AI-driven PyPI package intelligence.
 .
 ├── init.zsh
 ├── lib
+│   ├── pyproject.zsh
+│   └── uv.zsh
 ├── README.md
 └── share
 
-3 directories, 2 files
+3 directories, 4 files
 ```
 
 ## Author

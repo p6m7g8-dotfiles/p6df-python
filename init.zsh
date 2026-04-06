@@ -19,7 +19,11 @@ p6df::modules::python::deps() {
 ######################################################################
 #<
 #
-# Function: p6df::modules::python::path::init()
+# Function: p6df::modules::python::path::init(_module, _dir)
+#
+#  Args:
+#	_module -
+#	_dir -
 #
 #  Environment:	 HOME
 #>
@@ -137,79 +141,12 @@ EOF
 ######################################################################
 #<
 #
-# Function: p6df::modules::python::pyproject::toml()
-#
-#>
-######################################################################
-p6df::modules::python::pyproject::toml() {
-
-  cat <<'EOF'
-[project]
-name = "p6-template-uv"
-dynamic = ["version"]
-requires-python = "==3.14.2"
-dependencies = [
-  "docopt",
-]
-
-[dependency-groups]
-dev = [
-  "bandit",
-  "black",
-  "codespell",
-  "coverage",
-  "detect-secrets",
-  "flake8",
-  "isort",
-  "pip-audit",
-  "pre-commit",
-  "pydocstyle",
-  "pylint",
-  "pymarkdownlnt",
-  "pyre-check",
-  "pyre-extensions",
-  "pytest",
-  "pytest-cov",
-  "shellcheck-py",
-  "yamllint",
-]
-
-[tool.setuptools]
-include-package-data = false
-
-[tool.uv]
-index-url = "https://pypi.org/simple"
-
-[tool.black]
-line-length = 120
-
-[tool.isort]
-profile = "black"
-line_length = 120
-
-[tool.flake8]
-max-line-length = 120
-extend-ignore = ["E203"]
-
-[tool.pylint.format]
-max-line-length = 120
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-EOF
-
-  p6_return_void
-}
-
-######################################################################
-#<
-#
-# Function: str str = p6df::modules::python::prompt::runtime()
+# Function: str str = p6df::modules::python::prompt::system()
 #
 #  Returns:
 #	str - str
 #
-#  Environment:	 P6_DFZ_SRC_P6M7G8_DOTFILES_DIR P6_NL PYTHONPATH VIRTUAL_ENV_PROMPT
+#  Environment:	 P6_NL PYTHONPATH VIRTUAL_ENV_PROMPT
 #>
 ######################################################################
 p6df::modules::python::prompt::system() {
@@ -247,26 +184,3 @@ p6df::modules::python::prompt::lang() {
   p6_return_str "$str"
 }
 
-######################################################################
-#<
-#
-# Function: p6_python_uv_tool_install(pkg)
-#
-#  Args:
-#	pkg -
-#
-#  Environment:	 HOME
-#>
-######################################################################
-p6_python_uv_tool_install() {
-  local pkg="$1"
-
-  (
-    p6_dir_cd "$HOME"
-    uv tool uninstall "$pkg"
-    uv tool install "$pkg"
-    uv tool list
-  )
-
-  p6_return_void
-}
